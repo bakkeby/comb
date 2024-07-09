@@ -7,8 +7,7 @@ printcomb(int m, int n, unsigned char *c, char *data[])
 {
 	int ri;
 	char *item, *token, *saveptr;
-	int i, r;
-	r = n;
+	int i;
 	for (i = n; i--;) {
 		/* If entry contains more than one non-combinable items then recursively
 		 * expand the data when printing.
@@ -41,6 +40,9 @@ printcomb(int m, int n, unsigned char *c, char *data[])
 	}
 }
 
+/* The below is borrowed from rosetta code.
+ * https://rosettacode.org/wiki/Combinations#Lexicographic_ordered_generation
+ */
 void
 comb(int r, int n, unsigned char *c, char *argv[])
 {
@@ -63,8 +65,34 @@ int
 main(int argc, char *argv[])
 {
 	if (argc < 3) {
-		fprintf(stderr, "Usage: %s <sample size> <value1> <value2> ... <valueN>\n", argv[0]);
-		return 1;
+		fprintf(stderr,
+			"Usage: comb <sample size> <value1> <value2> ... <valueN>                      \n"
+			"                                                                              \n"
+			"Generates combinations from the possible values given the specified sample    \n"
+			"size and prints the results to standard out.                                  \n"
+			"                                                                              \n"
+			"If an argument contains multiple values separated by space then these will be \n"
+			"treated as individual but non-combinable values.                              \n"
+			"                                                                              \n"
+			"Example usage:                                                                \n"
+			"   $ comb 4 A B C D E                                                         \n"
+			"   A B C D                                                                    \n"
+			"   A B C E                                                                    \n"
+			"   A B D E                                                                    \n"
+			"   A C D E                                                                    \n"
+			"   B C D E                                                                    \n"
+			"                                                                              \n"
+			"   $ comb 3 A B C \"D E\"                                                     \n"
+			"   A B C                                                                      \n"
+			"   A B D                                                                      \n"
+			"   A B E                                                                      \n"
+			"   A C D                                                                      \n"
+			"   A C E                                                                      \n"
+			"   B C D                                                                      \n"
+			"   B C E                                                                      \n"
+			"\n"
+		);
+	    return 1;
 	}
 
 	int r = atoi(argv[1]);
